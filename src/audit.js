@@ -64,11 +64,10 @@ export function resetLastNotification () {
 export const draf = (cb) => requestAnimationFrame(() => requestAnimationFrame(cb))
 
 function sortViolations (violations) {
-  let sorted = []
-  impacts.forEach(impact => {
-    sorted = [...sorted, ...violations.filter(violation => violation.impact === impact)]
-  })
-  return sorted
+  return impacts.reduce(
+    (acc, impact) => [...acc, ...violations.filter(violation => violation.impact === impact)],
+    []
+  );
 }
 
 function createDeferred () {
@@ -85,7 +84,7 @@ function failureSummary (node, key) {
     logHtml(node)
     logFailureMessage(node, key)
 
-    var relatedNodes = []
+    let relatedNodes = []
     node[key].forEach(check => {
       relatedNodes = relatedNodes.concat(check.relatedNodes)
     })
