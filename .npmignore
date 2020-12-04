@@ -1,0 +1,6 @@
+docs/
+src/
+tests/
+.eslintrc.js
+rollup.config.*
+demo/
